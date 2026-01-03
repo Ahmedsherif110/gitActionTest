@@ -35,4 +35,4 @@ jobs:
           echo "⚡ Running linter..."
           echo "Checking code style..."
           echo "✓ Linting complete!"
-          sleep 30
+          sleep 29
