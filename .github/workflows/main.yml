@@ -1,0 +1,92 @@
+name: Steps-Actions-Full-Demo
+
+on:
+  push:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ---------------------------------
+      # ACTION 1: Checkout repository
+      # ---------------------------------
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ---------------------------------
+      # ACTION 2: Setup Node.js
+      # ---------------------------------
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # ---------------------------------
+      # Check Node & NPM versions
+      # ---------------------------------
+      - name: Check Node.js version
+        run: |
+          echo "Node version:"
+          node -v
+          echo "NPM version:"
+          npm -v
+
+      # ---------------------------------
+      # Create scripts directory
+      # ---------------------------------
+      - name: Create scripts directory
+        run: mkdir -p scripts
+
+      # ---------------------------------
+      # Bash shell example
+      # ---------------------------------
+      - name: Bash shell example
+        shell: bash
+        working-directory: scripts
+        continue-on-error: true
+        env:
+          NAME: Mohamed
+          CITY: Cairo
+        run: |
+          echo "Current directory: $PWD"
+          echo "Hello $NAME from $CITY"
+          exit 1
+
+      # ---------------------------------
+      # sh shell example
+      # ---------------------------------
+      - name: sh shell example
+        shell: sh
+        run: |
+          echo "This is sh shell"
+          echo "Current directory: $(pwd)"
+
+      # ---------------------------------
+      # PowerShell Core example
+      # ---------------------------------
+      - name: PowerShell Core example
+        shell: pwsh
+        run: |
+          Write-Host "This is PowerShell Core"
+          Write-Host "Current directory:"
+          Get-Location
+
+      # ---------------------------------
+      # Python shell example
+      # ---------------------------------
+      - name: Python shell example
+        shell: python
+        working-directory: scripts
+        run: |
+          import os
+          print("Running inside Python shell")
+          print("Current directory:", os.getcwd())
+          x = 5 + 10
+          print("Sum:", x)
+
+      # ---------------------------------
+      # Final step
+      # ---------------------------------
+      - name: Final step
+        run: echo "All steps executed successfully 🎉"
